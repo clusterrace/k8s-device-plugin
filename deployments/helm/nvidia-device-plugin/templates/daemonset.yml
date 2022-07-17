@@ -176,6 +176,10 @@ spec:
           - name: NVIDIA_MIG_MONITOR_DEVICES
             value: all
         {{- end }}
+        {{- if typeIs "string" .Values.healthChecksDisabled }}
+          - name: DP_DISABLE_HEALTHCHECKS
+            value: "{{ .Values.healthChecksDisabled }}"
+        {{- end }}
         securityContext:
           {{- include "nvidia-device-plugin.securityContext" . | nindent 10 }}
         volumeMounts:
